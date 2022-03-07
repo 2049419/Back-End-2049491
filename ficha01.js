@@ -111,7 +111,8 @@ soma100();
 
 //10.
 function factorial(n){
-    console.log(n**n);
+    res = n*n-1;
+    console.log(res);
 }
 factorial(3);
 
