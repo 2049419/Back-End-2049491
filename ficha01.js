@@ -117,6 +117,20 @@ factorial(3);
 
 
 //11.
-function calculo(numero1, numero1, numero1, numero1, numero1){
-
+function verify_array(array){
+    for (i = 0; i < array.length; i++){
+        if (array[i] < 0){
+            console.log("Erro:Numero negativo encontrado");
+        } else {
+            max = 0;
+            for (j = 0; j <= max; j++){
+                if (array[j] > max) {
+                    max = array[i]
+                    console.log("Biggest number: ", max);
+                }  
+            }
+        }
+    }
 }
+
+verify_array([1,2,3,-3,4])
