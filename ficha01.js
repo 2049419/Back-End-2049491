@@ -126,16 +126,19 @@ factorial(3);
 
 //11.
 function verify_array(array) {
+    var containsNeg = false;
     for (i = 0; i < array.length; i++) {
         if (array[i] < 0) {
-            console.log("Erro:Numero negativo encontrado");
-        } else {
-            biggest(array);
-            smallest(array);
-            media(array);
-            break;
+            containsNeg = true;
         }
     }
+    if (!containsNeg) {
+        biggest(array);
+        smallest(array);
+        media(array);
+    }
+    else
+        console.log("Array tem negativos.");
 }
 function biggest(array) {
     var max = array[0];
@@ -155,7 +158,7 @@ function smallest(array) {
             min = array[i];
         }
     }
-    console.log("Maior:", min);
+    console.log("Menor:", min);
     //min = Math.min.apply(null, array);
     //console.log("Menor:", min);
 }
@@ -164,8 +167,8 @@ function media(array) {
     for (i = 0; i < array.length; i++) {
         total += array[i];
     }
-    avg = total / array.length;
+    var avg = total / array.length;
     console.log("Média:", avg);
 }
 
-verify_array([1, 2, 3, 3, 4])
+verify_array([1, 2, 3, -10, 4])
