@@ -171,4 +171,4 @@ function media(array) {
     console.log("Média:", avg);
 }
 
-verify_array([1, 2, 3, -10, 4])
+verify_array([1, 2, 3, 10, 4])
