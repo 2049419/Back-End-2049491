@@ -74,9 +74,52 @@ function work(entry, exit) { //08:12:30
         } else if (seconds < 0 || seconds > 60) {
             minutes += 1;
         }
-    console.log("Work time was:", hours,":",minutes,":",seconds)
+        console.log("Work time was:", hours, ":", minutes, ":", seconds)
     } else {
         console.log("Wrong time(s) were inputed.");
     }
 }
-work("8:12:30", "17:20:30")
+work("8:00:00", "09:01:01")
+
+//6.
+function rectangule(height, width) {
+    var res = "";
+    for (var y = 1; y <= height; y++) {
+        for (var x = 1; x <= width; x++) {
+            res += "*"
+        };
+        res += "\n";
+    }
+    console.log(res);
+}
+rectangule(20, 10)
+
+//7.
+function triangle(height) {
+    var res = "";
+    for (var i = 1; i <= height; i++) {
+        for (var j = 1; j <= i; j++) {
+            res += "*";
+        }
+        res += "\n";
+    }
+    console.log(res);
+}
+triangle(10)
+
+//8.
+function box(side) {
+    var res = "";
+    for (var i = 1; i <= side; i++) {
+        for (var j = 1; j <= side; j++) {
+            if (i == 1 || i == side || j == 1 || j == side) {
+                res += "*";
+            } else {
+                res += " ";
+            }
+        }
+        res += "\n";
+    }
+    console.log(res);
+}
+box(10)
