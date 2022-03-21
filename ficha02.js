@@ -107,6 +107,18 @@ function triangle(height) {
 }
 triangle(10)
 
+//7. Alt
+function triangle2(altura) {
+    var line = "*";
+    for (var i = 0; i < altura; i++) {
+        console.log(line);
+        line += "*";
+    }
+}
+triangle2(10)
+
+console.log();
+
 //8.
 function box(side) {
     var res = "";
