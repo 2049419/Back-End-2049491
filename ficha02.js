@@ -135,3 +135,50 @@ function box(side) {
     console.log(res);
 }
 box(10)
+
+//9.
+var students = [];
+for (let i = 0; i < 100; i++) {
+    var student = {
+        number: Math.ceil(Math.random() * 1000),
+        grade: Math.random() * 20
+    }
+    students.push(student);
+}
+
+function listAll(students) {
+    for (let i = 0; i < students.length; i++) {
+        var student = students[i];
+        console.log("Number: " + student.number + ", Grade: " + student.grade);
+    }
+}
+
+function bestGrade(students) {
+    for (let i = 0; i < students.length; i++) {
+        var first = student.grade[0];
+        if (student.grade[i]  > first)
+        console.log("Number: " + student.number[i] + ", Grade: " + student.grade[i]);
+    }
+}
+
+function studentStats(students, option) {
+    switch (option) {
+        case 1:
+            listAll(students);
+            break;
+        case 2:
+            bestGrade(students);
+            break;
+        case 2:
+            bestGrade();
+            break;
+        case 3:
+            worstGrade();
+            break;
+        default:
+            console.log("Error");
+    }
+}
+
+
+studentStats(students, 2)
