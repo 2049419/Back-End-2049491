@@ -28,5 +28,3 @@ Person.prototype.greet2 = function() {
     console.log("Hello " + this.firstName + " " + this.lastName + ", you are " + this.age + " years old.");
 }
 john2.greet2();
-
-//4.
