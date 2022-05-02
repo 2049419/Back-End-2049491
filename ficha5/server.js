@@ -49,7 +49,13 @@ app.post('/users', function(request, response) {
 )
 
 app.put('/users', function(request, response) {
-  response.send("THIS IS A PUT");
+  var id = request.params.id;
+    var person = request.body;
+    if(person == undefined) {
+      response.send("This id does not exist.");
+    } else {
+      
+    }
   }
 )
 
