@@ -15,8 +15,15 @@ function readFile(path){
 
 
 app.get('/', function(request, response) {
-  response.send('Hello World!');
+  var id = request.params.id;
+  var person = personsObject["person" + id];
+  if(person == undefined) {
+    response.send("This id does not exist.");
+  } else {
+    response.send(person);
   }
+
+  } 
 )
 
 app.get('/users', function(request, response) {
@@ -28,10 +35,6 @@ app.get('/users', function(request, response) {
 app.post('/users', function(request, response) {
   
     var person = request.body;
-    
-    var personString = readFile('./persons.json');
-
-    var personsObject = JSON.parse(personString);
 
     var size = Object.keys(personsObject).length;
     size++;
@@ -50,11 +53,21 @@ app.put('/users', function(request, response) {
   }
 )
 
-app.delete('/users', function(request, response) {
-  response.send("THIS IS A DELETE");
+app.delete('/users/:id', function(request, response) {
+    var id = request.params.id;
+    var person = personsObject["person" + id];
+    if(person == undefined) {
+      response.send("This id does not exist.");
+    } else {
+      delete personsObject["person" + id];
+      response.send("Id " + id + " was deleted.")
+    }
   }
 )
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+var personString = readFile('./persons.json')
+var personsObject = JSON.parse(personString)
