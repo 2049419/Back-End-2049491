@@ -40,7 +40,7 @@ app.get('/two', (req,res) => {
 })
 
 app.get('/three', (req,res) => {
-    var ht = fs.readFileSync("C:/Users/Aluno/Desktop/ficha6/texto", "utf-8");
+    var ht = fs.readFileSync("texto", "utf-8");
     res.writeHead(200,{
         "Content-Length":Buffer.byteLength(ht),
         "Content-Type": "text/html"
@@ -49,7 +49,7 @@ app.get('/three', (req,res) => {
 })
 
 app.get('/replace', (req,res) => {
-    var ht = fs.readFileSync("C:/Users/Aluno/Desktop/ficha6/texto", "utf-8");
+    var ht = fs.readFileSync("texto", "utf-8");
     var date = new Date()
     ht = ht.replace("texto", date.toDateString());
     res.writeHead(200,{
@@ -60,7 +60,7 @@ app.get('/replace', (req,res) => {
 })
 
 app.get('/:name', (req,res) => {
-    var ht = fs.readFileSync("C:/Users/Aluno/Desktop/ficha6/texto", "utf-8");
+    var ht = fs.readFileSync("texto", "utf-8");
     var name = req.params.name
     ht = ht.replace("texto", name);
     res.writeHead(200,{
