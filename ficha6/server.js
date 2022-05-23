@@ -80,8 +80,6 @@ app.get('/log', (req,res) => {
     res.send(log);
 })
 
-//fs.unlinkSync()
-
 app.get('/download', (req,res) => {
     data(req,res)
     const file = "log.txt";
