@@ -1,1 +1,1 @@
-Path: / | Method: GET | Date: Mon May 23 2022
+Path: /delete | Method: GET | Date: Mon May 23 2022

@@ -37,6 +37,7 @@ app.get('/two', (req,res) => {
         "Content-Type": "text/html"
     });
     res.end(ht)
+    data(req,res)
 })
 
 app.get('/three', (req,res) => {
@@ -46,6 +47,7 @@ app.get('/three', (req,res) => {
         "Content-Type": "text/html"
     });
     res.end(ht)
+    data(req,res)
 })
 
 app.get('/replace', (req,res) => {
@@ -57,9 +59,10 @@ app.get('/replace', (req,res) => {
         "Content-Type": "text/html"
     });
     res.end(ht)
+    data(req,res)
 })
 
-app.get('/:name', (req,res) => {
+app.get('/user/:name', (req,res) => {
     var ht = fs.readFileSync("texto", "utf-8");
     var name = req.params.name
     ht = ht.replace("texto", name);
@@ -68,9 +71,24 @@ app.get('/:name', (req,res) => {
         "Content-Type": "text/html"
     });
     res.end(ht)
+    data(req,res)
 })
 
 app.get('/log', (req,res) => {
+    data(req,res)
     var log = fs.readFileSync("log.txt", "utf-8");
     res.send(log);
+})
+
+//fs.unlinkSync()
+
+app.get('/download', (req,res) => {
+    data(req,res)
+    const file = "log.txt";
+    res.download(file);
+})
+
+app.get('/clear', (req,res) => {
+    fs.unlinkSync("log.txt")
+    res.send("Deleted");
 })
