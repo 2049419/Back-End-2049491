@@ -43,6 +43,15 @@ sequelize.sync({ force: false}).then(() => {
     {firstname: "Donkey", lastname: "Kong", profession: "Professional Monkey", age: 41},
     {firstname: "Jesus", lastname: "Cristo", profession: "Profeta", age: 2022},
   ]).then(() => {
-    
+      console.log("Tabela feita!!");
   })
 })
+
+app.get("/person", (req,res) => {
+  Person.findAll().then((persons) => {
+    res.send(persons);
+  })
+})
+
+//node app.js
+//http://localhost:8000/person
