@@ -1,30 +1,41 @@
 // importar o express
 //https://codesandbox.io/s/oqo0ylv8oy?file=/src/controllers/sample.controller.js
 
-const { Sequelize, Model, DataType, DataTypes } = require("sequelize")
+const {
+  Sequelize,
+  Model,
+  DataType,
+  DataTypes,
+  EmptyResultError
+} = require("sequelize")
 const express = require("express");
+const {
+  response
+} = require("express");
 
 // instanciar o express
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({
+  extended: true
+}));
 
 // definir a porta do servidor http
 const port = 8000;
 
 // método que arranca o servidor http e fica à escuta
 app.listen(port, () => {
-    console.log('Example app listening at https://%s:%s');
+  console.log('Example app listening at https://%s:%s');
 });
 
 const sequelize = new Sequelize("ficha9", "root", "", {
-  dialect:"mysql"
+  dialect: "mysql"
 })
 
-sequelize.authenticate().then (() => {
+sequelize.authenticate().then(() => {
   console.log("Connection has been established");
 }).catch(err => {
-  console.log("Unable to connect" , err)
+  console.log("Unable to connect", err)
 })
 
 const Person = sequelize.define("person", {
@@ -33,23 +44,128 @@ const Person = sequelize.define("person", {
   profession: DataTypes.STRING,
   age: DataTypes.INTEGER
 });
-
-sequelize.sync({ force: false}).then(() => {
+//               force: false  | so it updates
+sequelize.sync({
+  force: true
+}).then(() => {
   console.log("Tables Created.");
-  Person.bulkCreate([
-    {firstname: "David", lastname: "Jardim", profession: "IT", age: 32},
-    {firstname: "Nick", lastname: "Bonito", profession: "NA", age: 28},
-    {firstname: "Pedro", lastname: "Rosario", profession: "Gamer", age: 19},
-    {firstname: "Donkey", lastname: "Kong", profession: "Professional Monkey", age: 41},
-    {firstname: "Jesus", lastname: "Cristo", profession: "Profeta", age: 2022},
+  Person.bulkCreate([{
+      firstName: "David",
+      lastName: "Jardim",
+      profession: "IT",
+      age: 32
+    },
+    {
+      firstName: "Nick",
+      lastName: "Bonito",
+      profession: "NA",
+      age: 28
+    },
+    {
+      firstName: "Pedro",
+      lastName: "Rosario",
+      profession: "Gamer",
+      age: 19
+    },
+    {
+      firstName: "Donkey",
+      lastName: "Kong",
+      profession: "Professional Monkey",
+      age: 41
+    },
+    {
+      firstName: "Jesus",
+      lastName: "Cristo",
+      profession: "Profeta",
+      age: 2022
+    },
   ]).then(() => {
-      console.log("Tabela feita!!");
+    console.log("Tabela feita!!");
   })
 })
 
-app.get("/person", (req,res) => {
-  Person.findAll().then((persons) => {
-    res.send(persons);
+app.get("/person", (req, res) => {
+  id = req.query.id;
+  if (id == undefined) {
+    Person.findAll().then((persons) => {
+      res.send(persons);
+    })
+  } else {
+    Person.findByPk(id).then(result => {
+      if (result == undefined){
+        res.send("Invalid ID.")
+      }  
+      else {res.send(result)
+      }
+    })
+  }
+})
+
+app.post("/person", (req, res) => {
+  Person.create(req.body).then((insertedPerson) => {
+    //body:
+    // {
+    //  "firstname": "Jane",
+    //  "lastname": "Doe", 
+    //  "profession": "",
+    //  "age": 19
+    // }
+    res.send("Person inserted with ID: " + insertedPerson.id);
+  })
+})
+
+app.delete("/person", (req, res) => {
+  var id = req.body.id;
+  if (isNaN(id)) {
+    res.status(400).send("Invalid ID.");
+  } else {
+    Person.destroy({
+      where: {
+        id: req.body.id
+      }
+    }).then(result => {
+      if (result == 0) {
+        res.status(404).send("ID not found.")
+      } else {
+        res.send("Deleted Instances: " + result)
+      }
+    })
+  }
+})
+
+app.delete("/person/:id", (req, res) => {
+  var id = req.params.id;
+  if (isNaN(id)) {
+    res.status(400).send("Invalid ID.");
+  } else {
+    Person.destroy({
+      where: {
+        id: id
+      }
+    }).then(result => {
+      if (result == 0) {
+        res.status(404).send("ID not found.")
+      } else {
+        res.send("Deleted Instances: " + result)
+      }
+    })
+  }
+})
+
+app.get("/person/:age/:profession", (req, res) => {
+  var age = req.params.age;
+  var profession = req.params.profession;
+  Person.findAll({
+    where: {
+      age: age,
+      profession: profession
+    }
+  }).then(result => {
+    if (result == 0) {
+      res.status(404).send("ID not found.")
+    } else {
+      res.send(result);
+    }
   })
 })
 
