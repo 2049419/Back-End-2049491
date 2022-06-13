@@ -191,8 +191,9 @@ app.put("/person/:id", (req, res) => {
         response.send(updatedPerson);
       })
     }
-    res.send("Person with ID: " + updatedPerson.id + " was updated.");
+    res.send("Person with ID, " + updatedPerson.id + " was updated.");
   })
 })
+
 //node app.js
 //http://localhost:8000/person
