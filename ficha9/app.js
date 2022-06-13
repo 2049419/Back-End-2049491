@@ -92,10 +92,10 @@ app.get("/person", (req, res) => {
     })
   } else {
     Person.findByPk(id).then(result => {
-      if (result == undefined){
+      if (result == undefined) {
         res.send("Invalid ID.")
-      }  
-      else {res.send(result)
+      } else {
+        res.send(result)
       }
     })
   }
@@ -169,5 +169,23 @@ app.get("/person/:age/:profession", (req, res) => {
   })
 })
 
+
+app.put("/person/:id", (req, res) => {
+  var id = req.params.id;
+  Person.update(req.body)({
+    where: {
+      id: id
+    }
+  }).then((insertedPerson) => {
+    //body:
+    // {
+    //  "firstname": "Jane",
+    //  "lastname": "Doe", 
+    //  "profession": "",
+    //  "age": 19
+    // }
+    res.send("Person with ID: " + insertedPerson.id + " was updated.");
+  })
+})
 //node app.js
 //http://localhost:8000/person
