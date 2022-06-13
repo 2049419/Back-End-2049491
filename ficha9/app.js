@@ -172,7 +172,7 @@ app.get("/person/:age/:profession", (req, res) => {
 
 app.put("/person/:id", (req, res) => {
   var id = req.params.id;
-  Person.update(req.body,{
+  Person.update(req.body, {
     where: {
       id: id
     }
@@ -182,16 +182,15 @@ app.put("/person/:id", (req, res) => {
     //  "firstname": "First",
     //  "lastname": "Last", 
     //  "profession": "",
-    //  "age": 22
+    //  "age": 20
     // }
     if (updatedPerson == 0) {
       res.send("Cannot find id.");
     } else {
       Person.findByPk(id).then(updatedPerson => {
-        response.send(updatedPerson);
+        res.send(updatedPerson);
       })
     }
-    res.send("Person with ID, " + updatedPerson.id + " was updated.");
   })
 })
 
