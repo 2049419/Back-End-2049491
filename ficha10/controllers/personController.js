@@ -1,6 +1,6 @@
 const Person = require("../sequelize").Person;
 
-exports.getAllPerson() = function (req, res, next) {
+exports.getAllPerson = function (req, res, next) {
     Person.findAll().then(result => {
         res.send(result);
     })
