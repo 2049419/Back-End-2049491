@@ -8,6 +8,7 @@ var path = require('path');
 var flash = require('connect-flash');
 
 var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -29,5 +30,6 @@ app.use(session({
 
 app.use(flash()); // use connect-flash for flash messages stored in session
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;
